@@ -2,7 +2,7 @@ const {ccclass, property} = cc._decorator;
 //import {init, otherFunc} from './init';
 import ccc from './init3';
 //import ggg = require("./init")
-import {aa, Type} from "./init3";
+import ggg, {aa, Type} from "./init3";
 import testTs from './testTs';  //export default class testTs extends cc.Component {
 // export enum Type{      //export interface aa {
 //     sd = -1,           //   gun:()=>void;      
@@ -12,7 +12,7 @@ import testTs from './testTs';  //export default class testTs extends cc.Compone
 //import init = require('./init')
 // import init from "./init"
 
-import CreatorHelper from "../Common/creatorHelper"
+import CreatorHelper from "./Common/creatorHelper"
 // import CreatorHelper = require("../Common/CreatorHelper")
 @ccclass
 export default class Helloworld extends cc.Component implements aa{
@@ -60,6 +60,7 @@ export default class Helloworld extends cc.Component implements aa{
             })
 
             this.node.addComponent("ContentAdapter");
+            this.testJsCallJava();
         }
     }
     //-- 微信小游戏授权
@@ -180,7 +181,6 @@ export default class Helloworld extends cc.Component implements aa{
             })
         }
         loadAsset();
-
     }
 
 
@@ -208,8 +208,12 @@ export default class Helloworld extends cc.Component implements aa{
     }
     //-- 测试
     testJsCallJava() {
-        if (cc.sys.isNative) {
+        if (window.gg.PlatformHelper.isAndroidNative()) {
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "openTest", "()V");
+        }else{
+            if(cc.sys.isNative){
+                console.log("也许是模拟器");
+            }
         }
     }
     btnClicked(event, data){

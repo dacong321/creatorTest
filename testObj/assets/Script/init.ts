@@ -39,17 +39,45 @@ import("./globalData").then(module => {
     console.log(module.default);
     globalData = module.default;
     console.log("globalData==测试import加载", globalData)
-}).
-
-catch(err => {
+}).catch(err => {
     console.log(err);
 })
 
 window.gg.globalData = globalData;
 
+//  requireModule("../Common/UtilTools");
+// let path = "../Common/UtilTools";
+// let nn = '${path}';
+import("./Common/UtilTools").then(
+    module =>{
+        console.log(module.default);
+        window.gg.utils = module.default;
+    }
+).catch(err =>{
+    console.log("gg.utils err", err)
+})
+
+import("./Common/PlatformHelper").then(
+    module => {
+        window.gg.PlatformHelper = module.default;
+    }
+)
 //-- 只是在这个模块是全局
 const foqweo = 123;
 console.log("===================init.ts 被加载了吗=====");
 
 
+
+//-- 不知为何 不能将import 传入变量使用
+// function requireModule(path){
+//     import("" + path).then(
+//         module =>{
+//             console.log(module.default);
+//             window.gg.utils = module.default;
+//         }
+//     ).catch(err =>{
+//         console.log("gg.utils err", err)
+//         //return null;
+//     })
+// }
 
